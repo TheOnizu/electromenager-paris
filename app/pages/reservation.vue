@@ -1,5 +1,13 @@
 <script setup lang="ts">
-useHead({ title: 'Prendre rendez-vous — ÉlectroMénagerParis' })
+useSeoMeta({
+  title: 'Prendre rendez-vous — Réparation électroménager Paris',
+  description: 'Réservez votre intervention à domicile en ligne. Choisissez une date disponible, renseignez vos coordonnées. Confirmation immédiate par email et SMS.',
+  ogTitle: 'Prendre rendez-vous — ÉlectroMénagerParis',
+  ogDescription: 'Réservez votre intervention à domicile en ligne. Confirmation immédiate.',
+  ogType: 'website',
+  twitterCard: 'summary',
+  robots: 'noindex',
+})
 
 const { data: availability } = await useFetch<{ date: string; is_available: boolean }[]>('/api/availability')
 const { data: settings } = await useFetch<Record<string, string>>('/api/settings')

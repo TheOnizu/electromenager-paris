@@ -1,4 +1,13 @@
 <script setup lang="ts">
+useSeoMeta({
+  title: 'Réparation électroménager Paris — Intervention à domicile',
+  description: 'Technicien indépendant à Paris. Réparation lave-linge, frigo, four, lave-vaisselle. Intervention sous 24–48h, devis sur place, toutes marques.',
+  ogTitle: 'Réparation électroménager Paris — Intervention à domicile',
+  ogDescription: 'Technicien indépendant à Paris. Réparation lave-linge, frigo, four, lave-vaisselle. Toutes marques, devis gratuit.',
+  ogType: 'website',
+  twitterCard: 'summary',
+})
+
 const { data: brands } = await useFetch<any[]>('/api/brands')
 const { data: services } = await useFetch<any[]>('/api/services')
 const { data: reviews } = await useFetch<any[]>('/api/reviews')
@@ -53,6 +62,23 @@ useHead({
             openingHoursSpecification: [
               { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'] },
             ],
+            ...(reviews.value?.length
+              ? {
+                  aggregateRating: {
+                    '@type': 'AggregateRating',
+                    ratingValue: avgRating.value,
+                    reviewCount: reviews.value.length,
+                    bestRating: 5,
+                    worstRating: 1,
+                  },
+                  review: reviews.value.slice(0, 5).map(r => ({
+                    '@type': 'Review',
+                    author: { '@type': 'Person', name: r.author_name },
+                    reviewRating: { '@type': 'Rating', ratingValue: r.rating, bestRating: 5, worstRating: 1 },
+                    reviewBody: r.comment,
+                  })),
+                }
+              : {}),
           },
           {
             '@type': 'FAQPage',

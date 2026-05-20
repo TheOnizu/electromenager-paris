@@ -1,5 +1,13 @@
 <script setup lang="ts">
-useHead({ title: 'Laisser un avis — ÉlectroMénagerParis' })
+useSeoMeta({
+  title: 'Laisser un avis — ÉlectroMénagerParis',
+  description: 'Partagez votre expérience après votre intervention. Votre avis aide d\'autres clients parisiens à choisir un technicien de confiance.',
+  ogTitle: 'Laisser un avis — ÉlectroMénagerParis',
+  ogDescription: 'Partagez votre expérience après votre intervention.',
+  ogType: 'website',
+  twitterCard: 'summary',
+  robots: 'noindex',
+})
 
 const form = reactive({
   author_name: '',
