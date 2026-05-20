@@ -7,13 +7,17 @@ export default defineEventHandler(async (event) => {
 
   const adminEmail = process.env.ADMIN_EMAIL
   const adminHash = process.env.ADMIN_PASSWORD_HASH
+  const adminPasswordPlain = process.env.ADMIN_PASSWORD // dev local uniquement
 
-  if (!adminEmail || !adminHash) {
+  if (!adminEmail || (!adminHash && !adminPasswordPlain)) {
     throw createError({ statusCode: 500, statusMessage: 'Configuration admin manquante' })
   }
 
   const emailMatch = email === adminEmail
-  const passwordMatch = await bcrypt.compare(password, adminHash)
+  // En local : comparaison directe si ADMIN_PASSWORD est défini (évite les problèmes de $ dans docker-compose)
+  const passwordMatch = adminPasswordPlain
+    ? password === adminPasswordPlain
+    : await bcrypt.compare(password, adminHash!)
 
   if (!emailMatch || !passwordMatch) {
     throw createError({ statusCode: 401, statusMessage: 'Identifiants incorrects' })
