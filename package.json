@@ -13,6 +13,7 @@
     "@nuxtjs/supabase": "^2.0.8",
     "@supabase/supabase-js": "^2.106.0",
     "@tailwindcss/vite": "^4.3.0",
+    "@tanstack/vue-table": "^8.21.3",
     "@vueuse/core": "^14.3.0",
     "bcryptjs": "^3.0.3",
     "class-variance-authority": "^0.7.1",
